@@ -1,18 +1,11 @@
-require("babel-polyfill");
+import { intersection } from 'lodash';
+import request from 'request';
 
-const _ = require('lodash');
-const request = require('request');
-const express = require('express');
-
-const app = express();
-const port = process.env.PORT || 3000;
-
-const axelerant = require('./axelerant.json');
-const url = 'http://www.drupalcores.com/data.json';
+import axelerant from './axelerant.json';
 const iconUrl = 'https://www.drupal.org/files/drupal%208%20logo%20isolated%20CMYK%2072.png';
 const slackUrl = process.env.SLACK_URL;
 
-const getContributors = (url) => {
+export const getContributors = (url) => {
   return new Promise((resolve, reject) => {
     request(url, (err, res, body) => {
       if(err) {
@@ -25,28 +18,28 @@ const getContributors = (url) => {
   });
 };
 
-const getAxelerantContributors = (contributors) => {
-  return _.intersection(Object.keys(contributors), axelerant)
+export const getAxelerantContributors = (contributors) => {
+  return intersection(Object.keys(contributors), axelerant)
     .reduce((acc, username) => {
       acc[username] = contributors[username];
       return acc;
     }, {});
 };
 
-const getTotalContributions = (axelerantContributors) => {
+export const getTotalContributions = (axelerantContributors) => {
   return Object.keys(axelerantContributors).reduce((acc, i) => {
     return acc + axelerantContributors[i];
-  }, 0)
+  }, 0);
 };
 
-const convertToMessage = (axelerantContributors, totalContributions) => {
+export const convertToMessage = (axelerantContributors, totalContributions) => {
   const axelerantContributorsStat = Object.keys(axelerantContributors).map(username => {
     return `<http://drupal.org/u/${username}|${username}> : ${axelerantContributors[username]}`
   }).join('\n');
   return `:drupal8:  ​_*${totalContributions}* Drupal 8 commits by Axelerant_  :drupal8:​\n${axelerantContributorsStat}`;
 };
 
-const convertToPayload = (message) => {
+export const convertToPayload = (message) => {
   return {
     text: message,
     username: 'D8-Bot',
@@ -54,7 +47,7 @@ const convertToPayload = (message) => {
   }
 };
 
-const postPayload = (payload) => {
+export const postPayload = (payload) => {
   return new Promise((resolve, reject) => {
     request.post({
       url: slackUrl,
@@ -68,25 +61,3 @@ const postPayload = (payload) => {
     });
   });
 };
-
-async function main(res) {
-  try {
-    const contributors = await getContributors(url);
-    const axelerantContributors = getAxelerantContributors(contributors);
-    const totalContributions = getTotalContributions(axelerantContributors);
-    const message = convertToMessage(axelerantContributors, totalContributions);
-    const payload = convertToPayload(message);
-    postPayload(payload);
-    res.send({success: true});
-  } catch(e) {
-    console.log(e);
-  }
-}
-
-app.post('/d8', (req, res) => {
-  main(res);
-});
-
-app.listen(port, () => {
-  console.log(`Listening on ${port}.`);
-})

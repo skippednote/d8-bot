@@ -1,4 +1,3 @@
 {
-  "presets": ["es2015"],
-  "plugins": ["syntax-async-functions", "transform-regenerator", "transform-es2015-destructuring"]
+  "presets": ["es2015", "stage-0"]
 }
