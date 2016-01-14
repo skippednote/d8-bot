@@ -12,7 +12,7 @@ var port = process.env.PORT || 3000;
 var axelerant = require('./axelerant.json');
 var url = 'http://www.drupalcores.com/data.json';
 var iconUrl = 'https://www.drupal.org/files/drupal%208%20logo%20isolated%20CMYK%2072.png';
-var slackUrl = process.env.SLACK_URL || 'https://hooks.slack.com/services/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';
+var slackUrl = process.env.SLACK_URL;
 
 var getContributors = function getContributors(url) {
   return new Promise(function (resolve, reject) {
@@ -73,7 +73,7 @@ var postPayload = function postPayload(payload) {
   });
 };
 
-function main() {
+function main(res) {
   var contributors, axelerantContributors, totalContributions, message, payload;
   return regeneratorRuntime.async(function main$(_context) {
     while (1) {
@@ -91,25 +91,26 @@ function main() {
           payload = convertToPayload(message);
 
           postPayload(payload);
-          _context.next = 14;
+          res.send(true);
+          _context.next = 15;
           break;
 
-        case 11:
-          _context.prev = 11;
+        case 12:
+          _context.prev = 12;
           _context.t0 = _context['catch'](0);
 
           console.log(_context.t0);
 
-        case 14:
+        case 15:
         case 'end':
           return _context.stop();
       }
     }
-  }, null, this, [[0, 11]]);
+  }, null, this, [[0, 12]]);
 }
 
 app.post('/d8', function (req, res) {
-  main();
+  main(res);
 });
 
 app.listen(port, function () {

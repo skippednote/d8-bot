@@ -69,7 +69,7 @@ const postPayload = (payload) => {
   });
 };
 
-async function main() {
+async function main(res) {
   try {
     const contributors = await getContributors(url);
     const axelerantContributors = getAxelerantContributors(contributors);
@@ -77,13 +77,14 @@ async function main() {
     const message = convertToMessage(axelerantContributors, totalContributions);
     const payload = convertToPayload(message);
     postPayload(payload);
+    res.send({success: true});
   } catch(e) {
     console.log(e);
   }
 }
 
 app.post('/d8', (req, res) => {
-  main();
+  main(res);
 });
 
 app.listen(port, () => {
