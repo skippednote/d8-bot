@@ -6,7 +6,7 @@
   "scripts": {
     "build": "babel index.js -o build.js",
     "start": "babel-node server.js",
-    "test": "babel-tape-runner tests/*"
+    "test": "babel-tape-runner tests/* | faucet"
   },
   "keywords": [
     "d8",

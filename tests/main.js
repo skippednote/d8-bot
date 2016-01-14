@@ -11,10 +11,12 @@ import axelerant from '../axelerant.json';
 import { contributors } from './data.json';
 
 tape('get contributors', (t) => {
-})
+  t.end();
+});
 
 tape('get axelerant contributors', (t) => {
-})
+  t.end();
+});
 
 tape('get total contributions', (t) => {
   const fixture = {
