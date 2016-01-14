@@ -20,8 +20,7 @@ async function main(res) {
     const totalContributions = getTotalContributions(axelerantContributors);
     const message = convertToMessage(axelerantContributors, totalContributions);
     const payload = convertToPayload(message);
-    console.log(payload);
-    // postPayload(payload);
+    postPayload(payload);
     res.send({success: true});
   } catch(e) {
     console.log(e);
