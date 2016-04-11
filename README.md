@@ -9,3 +9,14 @@ Axelerant D8 Bot
 npm install
 npm start
 ```
+
+## Moderation
+- Update `contributors.json` to update the list of contributors.
+
+## Deploy
+- Requirements
+  - Node version above 0.12
+- Install npm modules using `npm install`
+- Run the application using `npm start`
+- Set environment variable `SLACK_URL`
+- Procfile is setup for Heroku and like environments

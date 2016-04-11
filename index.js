@@ -1,7 +1,7 @@
 import { intersection } from 'lodash';
 import request from 'request';
 
-import axelerant from './axelerant.json';
+import axelerant from './contributors.json';
 const iconUrl = 'https://www.drupal.org/files/drupal%208%20logo%20isolated%20CMYK%2072.png';
 const slackUrl = process.env.SLACK_URL;
 
