@@ -1,7 +1,7 @@
 {
   "name": "d8",
   "version": "1.0.0",
-  "description": "Axelerant's D8 contribution list.",
+  "description": "Drupal 8 contribution list.",
   "main": "index.js",
   "scripts": {
     "build": "babel index.js -o build.js",
@@ -10,7 +10,7 @@
   },
   "keywords": [
     "d8",
-    "axelerant"
+    "drupal"
   ],
   "author": "Bassam Ismail <skippednote@gmail.com>",
   "license": "MIT",
