@@ -7,7 +7,7 @@ import {
   convertToPayload
 } from '../index';
 
-import axelerant from '../axelerant.json';
+import axelerant from '../contributors.json';
 import { contributors } from './data.json';
 
 tape('get contributors', (t) => {
