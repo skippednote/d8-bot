@@ -1,0 +1,14 @@
+{
+    "require": {
+        "guzzlehttp/guzzle": "^6.2",
+        "silex/silex": "~2.0"
+    },
+    "require-dev": {
+        "heroku/heroku-buildpack-php": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Skippednote\\DrupalContributions\\": "src/"
+        }
+    }
+}
